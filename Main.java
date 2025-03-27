@@ -40,6 +40,7 @@ public class Main {
         // Repeat the process until a valid ability is chosen
         for (int i = 0; i < 6; i++) {
         do{
+            System.out.println("the score is " + scoreList);
             System.out.println("the score is " + scoreList.get(i));
             System.out.println("Enter which ability you would like to assign this score " + abilitiesList);
             chosenAbility = scanner.nextLine().toLowerCase();
@@ -55,31 +56,37 @@ public class Main {
                 case "strength":
                    
                     abilitiesMap.put("strength", scoreList.get(i));
+                    scoreList.remove(i);
                     abilitiesList.remove("strength");
                     break;
                 case "dexterity":
               
                     abilitiesMap.put("dexterity", scoreList.get(i));
+                    scoreList.remove(i);
                     abilitiesList.remove("dexterity");
                     break;
                 case "constitution":
                 
                     abilitiesMap.put("constitution", scoreList.get(i));
+                    scoreList.remove(i);
                     abilitiesList.remove("constitution");
                     break;
                 case "intelligence":
                 
                     abilitiesMap.put("intelligence", scoreList.get(i));
+                    scoreList.remove(i);
                     abilitiesList.remove("intelligence");
                     break;
                 case "wisdom":
             
                     abilitiesMap.put("wisdom", scoreList.get(i));
+                    scoreList.remove(i);
                     abilitiesList.remove("wisdom");
                     break;
                 case "charisma":
     
                     abilitiesMap.put("charisma", scoreList.get(i));
+                    scoreList.remove(i);
                     abilitiesList.remove("charisma");
                     break;
             }
