@@ -41,7 +41,7 @@ public class Main {
         for (int i = 0; i < 6; i++) {
         do{
             System.out.println("the score is " + scoreList);
-            System.out.println("the score is " + scoreList.get(i));
+            System.out.println("the score is " + scoreList.get(0));
             System.out.println("Enter which ability you would like to assign this score " + abilitiesList);
             chosenAbility = scanner.nextLine().toLowerCase();
             
@@ -52,48 +52,26 @@ public class Main {
         } while (!found);
     
         
-            switch (chosenAbility) {
-                case "strength":
-                   
-                    abilitiesMap.put("strength", scoreList.get(i));
-                    scoreList.remove(i);
-                    abilitiesList.remove("strength");
-                    break;
-                case "dexterity":
-              
-                    abilitiesMap.put("dexterity", scoreList.get(i));
-                    scoreList.remove(i);
-                    abilitiesList.remove("dexterity");
-                    break;
-                case "constitution":
-                
-                    abilitiesMap.put("constitution", scoreList.get(i));
-                    scoreList.remove(i);
-                    abilitiesList.remove("constitution");
-                    break;
-                case "intelligence":
-                
-                    abilitiesMap.put("intelligence", scoreList.get(i));
-                    scoreList.remove(i);
-                    abilitiesList.remove("intelligence");
-                    break;
-                case "wisdom":
-            
-                    abilitiesMap.put("wisdom", scoreList.get(i));
-                    scoreList.remove(i);
-                    abilitiesList.remove("wisdom");
-                    break;
-                case "charisma":
-    
-                    abilitiesMap.put("charisma", scoreList.get(i));
-                    scoreList.remove(i);
-                    abilitiesList.remove("charisma");
-                    break;
-            }
+        switch (chosenAbility) {
+            case "strength":
+            case "dexterity":
+            case "constitution":
+            case "intelligence":
+            case "wisdom":
+            case "charisma":
+                if (!scoreList.isEmpty()) { // Ensure list isn't empty before accessing
+                    abilitiesMap.put(chosenAbility, scoreList.get(0)); // Always take the first element
+                    scoreList.remove(0); // Remove from the front
+                    abilitiesList.remove(chosenAbility); // Remove assigned ability
+                } else {
+                    System.out.println("No scores left to assign.");
+                }
+                break;
+            default:
+                System.out.println("Invalid ability choice. Try again.");
+        }
         }
         
-
-        System.out.println(abilitiesMap);
         return abilitiesMap;
     }
     static String chooseClass() {
@@ -135,6 +113,7 @@ public class Main {
         }
 
         assignScores(scoresList);
+        System.out.println(abilitiesMap);
           
         
 
