@@ -39,7 +39,7 @@ public class Main {
         
         // Repeat the process until a valid ability is chosen
         for (int i = 0; i < 6; i++) {
-        {
+        do{
             System.out.println("the score is " + scoreList.get(i));
             System.out.println("Enter which ability you would like to assign this score " + abilitiesList);
             chosenAbility = scanner.nextLine().toLowerCase();
