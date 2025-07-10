@@ -46,14 +46,7 @@ public class Main {
         String name = scanner.nextLine();
 
         chooseClass();
-        List<Integer> scoresList = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            int abilityScore = randomAbilityScore();
-            scoresList.add(abilityScore);
-        }
-
-        assignScores(scoresList);
-        System.out.println(abilitiesMap);
+        
           
         
 

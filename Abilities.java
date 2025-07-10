@@ -8,8 +8,17 @@ import java.util.List;
 import java.util.Map;
 public class Abilities {
     private Map<String, Integer> abilitiesMap;
+    static Scanner scanner = new Scanner(System.in);
     public Abilities(Map<String, Integer>abilitiesMap){
     this.abilitiesMap=abilitiesMap;
+    }
+    public void fillAbilities(){
+        List<Integer> scoresList = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            int abilityScore = randomAbilityScore();
+            scoresList.add(abilityScore);
+        }
+        assignScores(scoresList);
     }
     public int randomAbilityScore() {
         Random d6 = new Random();  
@@ -30,43 +39,46 @@ public class Abilities {
     }
     public Map<String, Integer> assignScores(List<Integer> scoreList) {
         List<String> abilitiesList = new ArrayList<>(Arrays.asList("strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"));
-        boolean found = false;
-        String chosenAbility = "";  
+        String chosenAbility = "";
+        Integer target = null;
 
         for (int i = 0; i < 6; i++) {
-        do{
-            System.out.println("the score is " + scoreList);
-            System.out.println("the score is " + scoreList.get(0));
-            System.out.println("Enter which ability you would like to assign this score " + abilitiesList);
-            chosenAbility = scanner.nextLine().toLowerCase();
-            
-            found = abilitiesList.contains(chosenAbility);
-            if (!found) {
-                System.out.println("Invalid ability. Please select another ability to assign.");
-            }
-        } while (!found);
-    
-        
-        switch (chosenAbility) {
-            case "strength":
-            case "dexterity":
-            case "constitution":
-            case "intelligence":
-            case "wisdom":
-            case "charisma":
-                if (!scoreList.isEmpty()) { // Ensure list isn't empty before accessing
-                    abilitiesMap.put(chosenAbility, scoreList.get(0)); // Always take the first element
-                    scoreList.remove(0); // Remove from the front
-                    abilitiesList.remove(chosenAbility); // Remove assigned ability
-                } else {
-                    System.out.println("No scores left to assign.");
+            boolean validInput = false;
+
+            while (!validInput) {
+                System.out.println("Your scores are: " + scoreList);
+                System.out.println("Choose a score to assign:");
+
+                try {
+                    target = Integer.parseInt(scanner.nextLine());
+                    if (!scoreList.contains(target)) {
+                        System.out.println("That score is not in the list. Try again.");
+                        continue;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number. Try again.");
+                    continue;
                 }
-                break;
-            default:
-                System.out.println("Invalid ability choice. Try again.");
+
+                System.out.println("Enter which ability to assign this score to " + abilitiesList + ":");
+                chosenAbility = scanner.nextLine().toLowerCase();
+
+                if (!abilitiesList.contains(chosenAbility)) {
+                    System.out.println("Invalid ability. Try again.");
+                    continue;
+                }
+
+                // Only reach here if both inputs are valid
+                validInput = true;
+            }
+
+            // Assign and remove after validation
+            abilitiesMap.put(chosenAbility, target);
+            scoreList.remove((Integer) target); // removes first occurrence only
+            abilitiesList.remove(chosenAbility);
         }
-        }
-        
+
         return abilitiesMap;
-    }
+}
+
 }
